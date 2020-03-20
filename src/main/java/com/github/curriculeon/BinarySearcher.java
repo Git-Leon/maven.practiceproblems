@@ -1,8 +1,6 @@
 package com.github.curriculeon;
 
 import java.util.Arrays;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 /**
  * @author leonhunter
@@ -10,9 +8,15 @@ import java.util.stream.Stream;
  */
 public class BinarySearcher {
     private final Integer[] input;
+    private final Integer relativeStartingIndex;
 
     public BinarySearcher(Integer[] input) {
+        this(0, input);
+    }
+
+    public BinarySearcher(Integer relativeStartingIndex, Integer[] input) {
         this.input = input;
+        this.relativeStartingIndex = relativeStartingIndex;
     }
 
     public Integer search(Integer itemToFind) {
@@ -26,7 +30,7 @@ public class BinarySearcher {
 
         // If the element is present at the middle itself
         if (isPresentAtMidPoint)
-            return midPointIndex;
+            return midPointIndex + relativeStartingIndex;
 
         // If element is smaller than mid, then search left
         if (isSmallerThanMidPoint) {
@@ -35,8 +39,9 @@ public class BinarySearcher {
         }
 
         // Else search right
-        subSearchSpace = Arrays.copyOfRange(input, midPointIndex+1, endingIndex);
-        int result =  new BinarySearcher(subSearchSpace).search(itemToFind);
-        return result;
+        startingIndex = midPointIndex+1;
+        subSearchSpace = Arrays.copyOfRange(input, startingIndex, endingIndex);
+        int relativeOffset =  new BinarySearcher(startingIndex, subSearchSpace).search(itemToFind);
+        return relativeOffset + relativeStartingIndex;
     }
 }

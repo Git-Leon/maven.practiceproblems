@@ -5,11 +5,8 @@ package com.github.curriculeon;
  * @created 03/19/2020 - 10:05 PM
  */
 public class BinaryInsertionSort {
-    public static void main(String[] args)
-    {
-        final Integer[] arr = {37, 23, 0, 17, 12, 72, 31,
-                46, 100, 88, 54 };
-
+    public static void main(String[] args) {
+        final Integer[] arr = {37, 23, 0, 17, 12, 72, 31, 46, 100, 88, 54 };
         new BinaryInsertionSort().sort(arr);
 
         for(int i=0; i<arr.length; i++)

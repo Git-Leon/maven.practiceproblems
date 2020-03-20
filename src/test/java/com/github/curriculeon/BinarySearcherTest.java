@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;
 
-public class MyObjectTest {
+public class BinarySearcherTest {
     @Test
     public void test1() {
         test(0, 999);

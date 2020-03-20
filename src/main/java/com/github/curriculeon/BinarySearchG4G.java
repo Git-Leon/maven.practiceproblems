@@ -7,8 +7,7 @@ package com.github.curriculeon;
 public class BinarySearchG4G {
 
     // Returns index of x if it is present in arr[l.. r], else return -1
-    int binarySearch(Integer input[], int startingIndex, int endingIndex, int itemToFind)
-    {
+    int binarySearch(Integer input[], int startingIndex, int endingIndex, int itemToFind) {
         if (endingIndex >= startingIndex) {
             int searchSpaceSize = endingIndex - startingIndex;
             int offset = searchSpaceSize / 2;
