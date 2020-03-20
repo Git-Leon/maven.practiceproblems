@@ -27,24 +27,21 @@ public class TopWords {
             int occurrences = Collections.frequency(sentenceList, word);
             occurrenceMap.put(word, occurrences);
         }
+        List<Map.Entry<String, Integer>> entryList = new ArrayList<>(occurrenceMap.entrySet());
+        Collections.sort(entryList, (entry1, entry2) -> {
+            Integer entry1Value = entry1.getValue();
+            Integer entry2Value = entry2.getValue();
+            Boolean sameValue = entry1Value == entry2Value;
+            if(!sameValue) {
+                return entry1Value.compareTo(entry2Value);
+            }
+            return entry1.getKey().compareTo(entry2.getKey());
+        });
 
-        occurrenceMap = occurrenceMap
-                .entrySet()
-                .stream()
-                .sorted(Map.Entry.comparingByValue())
-                .collect(Collectors.toMap(
-                        Map.Entry::getKey,
-                        Map.Entry::getValue,
-                        (e1, e2) -> e2,
-                        LinkedHashMap::new));
-
-        List<String> keys = new ArrayList<>(occurrenceMap.keySet());
-        Collections.reverse(keys);
-        List<String> result = keys.subList(0, 3);
-        Collections.sort(result);
-        Collections.reverse(result);
-
-        return result;
+        return Arrays.asList(
+                entryList.get(0).getKey(),
+                entryList.get(1).getKey(),
+                entryList.get(2).getKey());
 
     }
     private static String sanitize(String s) {
