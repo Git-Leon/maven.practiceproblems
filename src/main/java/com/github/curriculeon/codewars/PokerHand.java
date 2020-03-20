@@ -10,14 +10,37 @@ import java.util.Map;
  * @created 03/20/2020 - 2:10 PM
  * https://www.codewars.com/kata/5739174624fc28e188000465/train/java
  */
-public class PokerHand
-{
-    public enum Result { TIE, WIN, LOSS }
+public class PokerHand {
+    private final String handAsString;
 
-    PokerHand(String hand) {
+    public enum Result {TIE, WIN, LOSS}
+
+    public PokerHand(String hand) {
+        this.handAsString = hand;
+    }
+
+    public String getHandAsString() {
+        return handAsString;
     }
 
     public Result compareWith(PokerHand hand) {
+        System.out.println(toString());
+        String opponentHandAsString = hand.getHandAsString();
+        String hands = handAsString + " " + opponentHandAsString;
+        HandSplitter handSplitter = new HandSplitter(hands);
+        String winnerAsString = Arrays.toString(handSplitter.getWinner());
+        if (winnerAsString.equals(opponentHandAsString)) {
+            return Result.LOSS;
+        } else if(winnerAsString.equals(handAsString)) {
+            return Result.WIN;
+        }
+
+        System.out.println(new StringBuilder()
+                .append("Opponent Hand = " + opponentHandAsString)
+                .append("\nMy hand = " + handAsString)
+                .append("\nhands = " + hands)
+                .append("\nwinner = " + winnerAsString)
+                .toString());
         return Result.TIE;
     }
 
@@ -32,12 +55,12 @@ public class PokerHand
 
         public HandSplitter(String cards) {
             this.bothHands = Arrays.asList(cards.split(" "));
-            this.hand1 = parseHand(bothHands.subList(0, bothHands.size()/2));
-            this.hand2 = parseHand(bothHands.subList(bothHands.size()/2, bothHands.size()));
+            this.hand1 = parseHand(bothHands.subList(0, bothHands.size() / 2));
+            this.hand2 = parseHand(bothHands.subList(bothHands.size() / 2, bothHands.size()));
         }
 
         public Card[] getWinner() {
-            if(Hand.evaluate(hand1) > Hand.evaluate(hand2)) {
+            if (Hand.evaluate(hand1) > Hand.evaluate(hand2)) {
                 return hand1;
             }
             return hand2;
@@ -45,7 +68,7 @@ public class PokerHand
 
         private Card[] parseHand(List<String> cardListAsString) {
             StringBuilder sb = new StringBuilder();
-            cardListAsString.forEach(card ->{
+            cardListAsString.forEach(card -> {
                 Character rank = card.charAt(0);
                 Character suit = card.charAt(1);
 
@@ -57,18 +80,6 @@ public class PokerHand
             return Hand.fromString(sb.toString());
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     // https://github.com/jmp/poker-hand-evaluator
@@ -83,6 +94,7 @@ public class PokerHand
         /**
          * Evaluates the given hand and returns its value as an integer.
          * Based on Kevin Suffecool's 5-card hand evaluator and with Paul Senzee's pre-computed hash.
+         *
          * @param cards a hand of bothHands to evaluate
          * @return the value of the hand as an integer between 1 and 7462
          */
@@ -125,6 +137,7 @@ public class PokerHand
 
         /**
          * Creates a new 5-card hand from the given string.
+         *
          * @param string the string to create the hand from, such as "Kd 5s Jc Ah Qc"
          * @return a new hand as an array of bothHands
          * @see Card
@@ -145,6 +158,7 @@ public class PokerHand
 
         /**
          * Converts the given hand into concatenation of their string representations
+         *
          * @param cards a hand of bothHands
          * @return a concatenation of the string representations of the given bothHands
          */
@@ -162,6 +176,7 @@ public class PokerHand
 
         /**
          * Checks if the given array of values has any duplicates.
+         *
          * @param values the values to check
          * @return true if the values contain duplicates, false otherwise
          */
@@ -182,21 +197,6 @@ public class PokerHand
             return ((key + (key << 2)) >>> 19) ^ new Tables.Hash.Adjust().TABLE[(key >>> 8) & 0x1FF];
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     static class Card {
@@ -238,6 +238,7 @@ public class PokerHand
 
         /**
          * Creates a new card with the given rank and suit.
+         *
          * @param rank the rank of the card, e.g. {@link Card#SIX}
          * @param suit the suit of the card, e.g. {@link Card#CLUBS}
          */
@@ -259,6 +260,7 @@ public class PokerHand
          * The string should be a two-character string where the first character
          * is the rank and the second character is the suit. For example, "Kc" means
          * the king of clubs, and "As" means the ace of spades.
+         *
          * @param string Card to create as a string.
          * @return a new {@link Card} instance corresponding to the given string.
          */
@@ -275,6 +277,7 @@ public class PokerHand
 
         /**
          * Returns the rank of the card.
+         *
          * @return rank of the card as an integer.
          * @see Card#ACE
          * @see Card#DEUCE
@@ -296,6 +299,7 @@ public class PokerHand
 
         /**
          * Returns the suit of the card.
+         *
          * @return Suit of the card as an integer.
          * @see Card#SPADES
          * @see Card#HEARTS
@@ -309,6 +313,7 @@ public class PokerHand
         /**
          * Returns a string representation of the card.
          * For example, the king of spades is "Ks", and the jack of hearts is "Jh".
+         *
          * @return a string representation of the card.
          */
         public String toString() {
@@ -323,6 +328,7 @@ public class PokerHand
          * where <code>x</code> means unused, <code>AKQJT 98765432</code> are bits turned on/off
          * depending on the rank of the card, <code>CDHS</code> are the bits corresponding to the
          * suit, and <code>PPPPPP</code> is the prime number of the card.
+         *
          * @return the value of the card.
          */
         int getValue() {
@@ -331,6 +337,7 @@ public class PokerHand
 
         /**
          * Returns whether the given rank is valid or not.
+         *
          * @param rank rank to check.
          * @return true if the rank is valid, false otherwise.
          */
@@ -340,6 +347,7 @@ public class PokerHand
 
         /**
          * Returns whether the given suit is valid or not.
+         *
          * @param suit suit to check.
          * @return true if the suit is valid, false otherwise.
          */
@@ -347,34 +355,6 @@ public class PokerHand
             return suit == CLUBS || suit == DIAMONDS || suit == HEARTS || suit == SPADES;
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     static class Tables {
