@@ -28,19 +28,22 @@ public class PokerHand {
         String opponentHandAsString = hand.getHandAsString();
         String hands = handAsString + " " + opponentHandAsString;
         HandSplitter handSplitter = new HandSplitter(hands);
-        String winnerAsString = Arrays.toString(handSplitter.getWinner());
-        if (winnerAsString.equals(opponentHandAsString)) {
-            return Result.LOSS;
-        } else if(winnerAsString.equals(handAsString)) {
-            return Result.WIN;
-        }
-
+        String winnerAsString = Arrays.toString(handSplitter.getWinner())
+                .toUpperCase()
+                .replaceAll(",", "")
+                .replaceAll("\\[", "")
+                .replaceAll("]", "");
         System.out.println(new StringBuilder()
                 .append("Opponent Hand = " + opponentHandAsString)
                 .append("\nMy hand = " + handAsString)
                 .append("\nhands = " + hands)
                 .append("\nwinner = " + winnerAsString)
                 .toString());
+        if (!winnerAsString.equals(opponentHandAsString)) {
+            return Result.LOSS;
+        } else if (!winnerAsString.equals(handAsString)) {
+            return Result.WIN;
+        }
         return Result.TIE;
     }
 
