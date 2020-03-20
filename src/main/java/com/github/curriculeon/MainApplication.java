@@ -1,13 +1,16 @@
 package com.github.curriculeon;
 
+import com.github.curriculeon.sorting.BinarySearcher;
+
+import java.util.Arrays;
+
 public class MainApplication {
     public static void main(String args[])
     {
-        BinarySearchG4G ob = new BinarySearchG4G();
         Integer arr[] = { 2, 3, 4, 10, 40 };
         int n = arr.length;
         int x = 10;
-        int result = ob.binarySearch(arr, 0, n - 1, x);
+        int result = Arrays.binarySearch(arr, 0, n - 1, x);
         BinarySearcher binarySearcher = new BinarySearcher(arr);
         int resultt = binarySearcher.search(x);
         if (result == -1)

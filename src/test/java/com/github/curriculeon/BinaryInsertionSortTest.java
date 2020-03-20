@@ -1,15 +1,14 @@
 package com.github.curriculeon;
 
-import org.junit.Assert;
+import com.github.curriculeon.sorting.BinarySearcher;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;
 
-public class BinarySearcherTest {
+public class BinaryInsertionSortTest {
     @Test
     public void test1() {
         test(0, 999);
@@ -27,7 +26,7 @@ public class BinarySearcherTest {
         BinarySearcher myObject = new BinarySearcher(input);
 
         // when
-//        myObject.sort();
+        myObject.search(10);
 
         //then
 //        Assert.assertEquals(Arrays.toString(expected), Arrays.toString(myObject.toArray()));
