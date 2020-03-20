@@ -11,14 +11,6 @@ import java.util.stream.Stream;
 public class BinarySearcher {
     private final Integer[] input;
 
-    public BinarySearcher(int[] input) {
-        Integer[] inp = new Integer[input.length];
-        for (int i = 0; i < inp.length; i++) {
-            inp[i] = input[i];
-        }
-        this.input = inp;
-    }
-
     public BinarySearcher(Integer[] input) {
         this.input = input;
     }

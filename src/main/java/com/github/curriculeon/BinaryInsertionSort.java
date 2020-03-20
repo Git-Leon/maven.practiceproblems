@@ -1,7 +1,5 @@
 package com.github.curriculeon;
 
-import java.util.Arrays;
-
 /**
  * @author leonhunter
  * @created 03/19/2020 - 10:05 PM
@@ -9,7 +7,7 @@ import java.util.Arrays;
 public class BinaryInsertionSort {
     public static void main(String[] args)
     {
-        final int[] arr = {37, 23, 0, 17, 12, 72, 31,
+        final Integer[] arr = {37, 23, 0, 17, 12, 72, 31,
                 46, 100, 88, 54 };
 
         new BinaryInsertionSort().sort(arr);
@@ -18,7 +16,7 @@ public class BinaryInsertionSort {
             System.out.print(arr[i]+" ");
     }
 
-    public int[] sort(int array[]) {
+    public Integer[] sort(Integer array[]) {
         array = array.clone();
         for (int currentIndex = 1; currentIndex < array.length; currentIndex++) {
             int currentValue = array[currentIndex];
