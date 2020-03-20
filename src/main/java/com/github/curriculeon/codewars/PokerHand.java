@@ -24,7 +24,6 @@ public class PokerHand {
     }
 
     public Result compareWith(PokerHand hand) {
-        System.out.println(toString());
         String opponentHandAsString = hand.getHandAsString();
         String hands = handAsString + " " + opponentHandAsString;
         HandSplitter handSplitter = new HandSplitter(hands);
@@ -33,15 +32,9 @@ public class PokerHand {
                 .replaceAll(",", "")
                 .replaceAll("\\[", "")
                 .replaceAll("]", "");
-        System.out.println(new StringBuilder()
-                .append("Opponent Hand = " + opponentHandAsString)
-                .append("\nMy hand = " + handAsString)
-                .append("\nhands = " + hands)
-                .append("\nwinner = " + winnerAsString)
-                .toString());
-        if (!winnerAsString.equals(opponentHandAsString)) {
+        if (winnerAsString.equals(handAsString)) {
             return Result.LOSS;
-        } else if (!winnerAsString.equals(handAsString)) {
+        } else if (winnerAsString.equals(opponentHandAsString)) {
             return Result.WIN;
         }
         return Result.TIE;
@@ -63,8 +56,12 @@ public class PokerHand {
         }
 
         public Card[] getWinner() {
-            if (Hand.evaluate(hand1) > Hand.evaluate(hand2)) {
+            int hand1Value = Hand.evaluate(hand1);
+            int hand2Value = Hand.evaluate(hand2);
+            if (hand1Value > hand2Value) {
                 return hand1;
+            } else if(hand1Value == hand2Value) {
+                return new Card[0];
             }
             return hand2;
         }
@@ -404,7 +401,7 @@ public class PokerHand {
         }
 
         public static class Flushes {
-            public final short[] TABLE = {
+            public static final short[] TABLE = {
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 1599, 0, 0, 0, 0, 0, 0, 0, 1598, 0, 0, 0, 1597, 0, 1596,
@@ -823,7 +820,7 @@ public class PokerHand {
         }
 
         public static class Unique {
-            public final short[] TABLE = {
+            public static final short[] TABLE = {
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 1608, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 7462, 0, 0, 0, 0, 0, 0, 0, 7461, 0, 0, 0, 7460, 0,
@@ -1286,7 +1283,7 @@ public class PokerHand {
             }
 
             static public class Values {
-                public final short[] TABLE = {
+                public static final short[] TABLE = {
                         148, 2934, 166, 5107, 4628, 166, 166, 166, 166, 3033, 166, 4692, 166, 5571, 2225, 166,
                         5340, 3423, 166, 3191, 1752, 166, 5212, 166, 166, 3520, 166, 166, 166, 1867, 166, 3313,
                         166, 3461, 166, 166, 3174, 1737, 5010, 5008, 166, 4344, 2868, 3877, 166, 4089, 166, 5041,
