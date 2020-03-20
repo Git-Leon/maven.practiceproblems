@@ -28,12 +28,12 @@ public class TopWords {
             occurrenceMap.put(word, occurrences);
         }
         List<Map.Entry<String, Integer>> entryList = new ArrayList<>(occurrenceMap.entrySet());
-        Collections.sort(entryList, (entry1, entry2) -> {
+        entryList.sort((entry1, entry2) -> {
             Integer entry1Value = entry1.getValue();
             Integer entry2Value = entry2.getValue();
-            Boolean sameValue = entry1Value == entry2Value;
-            if(!sameValue) {
-                return entry1Value.compareTo(entry2Value);
+            boolean sameValue = entry1Value.equals(entry2Value);
+            if (!sameValue) {
+                return -entry1Value.compareTo(entry2Value);
             }
             return entry1.getKey().compareTo(entry2.getKey());
         });
