@@ -21,7 +21,6 @@ public class BinaryInsertionSortTest {
 
     private void test(int start, int max) {
         // Given
-        int[] expected = IntStream.range(start,max).toArray();
         Integer[] input = getArray(start, max);
         BinarySearcher myObject = new BinarySearcher(input);
 

@@ -25,10 +25,10 @@ public class NextSmallestNumberTest {
 
     private void test(Long input, Long expected) {
         // given
-        NextSmallestNumber nextSmallestNumber = new NextSmallestNumber();
+        NextSmallestNumber nextSmallestNumber = new NextSmallestNumber(input);
 
         // when
-        Long actual = nextSmallestNumber.nextSmaller(input);
+        Long actual = nextSmallestNumber.nextSmaller();
 
         // then
         Assert.assertEquals(expected, actual);
