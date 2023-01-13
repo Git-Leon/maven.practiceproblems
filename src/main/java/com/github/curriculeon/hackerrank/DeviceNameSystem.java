@@ -1,7 +1,7 @@
 package com.github.curriculeon.hackerrank;
 
 
-import jdk.internal.net.http.common.Pair;
+import javafx.util.Pair;
 
 import java.util.*;
 
@@ -50,7 +50,7 @@ public class DeviceNameSystem {
         }
 
         for(Pair<Integer, String> pair : pairList) {
-            result.add(pair.second + pair.first);
+            result.add(pair.getValue() + pair.getKey());
         }
         return result;
     }
@@ -58,7 +58,7 @@ public class DeviceNameSystem {
     private static int getNumberOfOccurrences(List<Pair<Integer, String>> result, String name) {
         int count = 0;
         for (Pair<Integer, String> pair : result) {
-            if (pair.second.equals(name)) {
+            if (pair.getValue().equals(name)) {
                 count++;
             }
         }
